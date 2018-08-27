@@ -1,0 +1,360 @@
+\documentclass{article}
+
+\setlength{\oddsidemargin}{0.25 in}
+\setlength{\evensidemargin}{-0.25 in}
+\setlength{\topmargin}{-0.6 in}
+\setlength{\textwidth}{6.5 in}
+\setlength{\textheight}{8.5 in}
+\setlength{\headsep}{0.75 in}
+\setlength{\parindent}{0 in}
+\setlength{\parskip}{0.1 in}
+
+\usepackage{amsmath,amssymb}
+\usepackage[mathscr]{euscript}
+\usepackage{amsthm}
+\usepackage{graphicx}
+\usepackage{framed}
+\usepackage{float}
+\usepackage{multirow}
+\usepackage{color}
+\usepackage{cite}
+\usepackage[hidelinks, breaklinks=true]{hyperref}
+\usepackage{xcolor}  \definecolor{shadecolor}{rgb}{.95,.95,.95}
+\usepackage[font=footnotesize]{caption}
+\usepackage{nicefrac}
+\usepackage{ragged2e}
+\usepackage[shortlabels]{enumitem}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{mdframed}
+\usepackage{changepage}
+\usepackage{xfrac}
+
+\newmdenv[
+  topline=false,
+  bottomline=false,
+  skipabove=\topsep,
+  skipbelow=\topsep
+]{siderules}
+
+\theoremstyle{definition}
+\newtheorem{myDefinition}{Definition}
+\newtheorem{myTheorem}{Theorem}
+\newtheorem{myLemma}{Lemma}
+\newtheorem{myCorollary}{Corollary}
+\newtheorem{myProposition}{Proposition}
+\newtheorem{myExample}{Example}
+\newtheorem{myExercise}{Exercise}
+\newtheorem{myRemark}{Remark}
+\newtheorem{myConjecture}{Conjecture}
+
+\newcounter{lecnum}
+\renewcommand{\thepage}{\thelecnum-\arabic{page}}
+\renewcommand{\theequation}{\thelecnum.\arabic{equation}}
+\renewcommand{\thefigure}{\thelecnum.\arabic{figure}}
+\renewcommand{\thetable}{\thelecnum.\arabic{table}}
+\renewcommand{\themyDefinition}{\thelecnum.\arabic{myDefinition}}
+\renewcommand{\themyTheorem}{\thelecnum.\arabic{myTheorem}}
+\renewcommand{\themyLemma}{\thelecnum.\arabic{myLemma}}
+\renewcommand{\themyCorollary}{\thelecnum.\arabic{myCorollary}}
+\renewcommand{\themyProposition}{\thelecnum.\arabic{myProposition}}
+\renewcommand{\themyExample}{\thelecnum.\arabic{myExample}}
+\renewcommand{\themyExercise}{\thelecnum.\arabic{myExercise}}
+\renewcommand{\themyRemark}{\thelecnum.\arabic{myRemark}}
+\renewcommand{\themyConjecture}{\thelecnum.\arabic{myConjecture}}
+
+\newcommand{\verteq}{\rotatebox{90}{$\,=$}}
+\newcommand{\equalto}[2]{
+  \underset{\scriptstyle\overset{\mkern4mu\verteq}{#2}}{#1}
+}
+
+\newcommand{\lecture}[3]{
+  \pagestyle{myheadings}
+  \thispagestyle{plain}
+  \newpage
+  \setcounter{lecnum}{#1}
+  \setcounter{page}{1}
+  \noindent
+  \begin{center}
+  \rule{\textwidth}{1.6pt}\vspace*{-\baselineskip}\vspace*{2pt}
+  \rule{\textwidth}{0.4pt}\\[1\baselineskip]
+  \vbox{\vspace{2mm}
+  \hbox to 6.28in {
+    {\bf Math 6211: Optimization}
+    \hfill $\copyright$ Fall 2018
+  }
+  \vspace{4mm}
+  \hbox to 6.28in { {\Large \hfill Lecture #1: #2  \hfill} }
+  \vspace{4mm}
+  \hbox to 6.28in {
+    {\scshape Instructor: Xiaojing Ye}  \hfill Scribed by: #3 }
+  }
+  \vspace{-2mm}
+  \rule{\textwidth}{0.4pt}\vspace*{-\baselineskip}\vspace{3.2pt}
+  \rule{\textwidth}{1.6pt}\\[\baselineskip]
+  \end{center}
+  \markboth{Lecture #1: #2}{Lecture #1: #2}
+  \vspace*{4mm}
+}
+
+\newcommand{\bs}[1]{\boldsymbol{#1}}
+\newcommand{\hatt}[1]{\boldsymbol{\hat{#1}}}
+\newcommand{\careful}{\textcolor{red}}
+\newcommand{\comment}{\textcolor{blue}}
+\newcommand*\rot{\rotatebox{90}}
+\newcommand*{\Scale}[2][4]{\scalebox{#1}{\ensuremath{#2}}}
+\newcommand{\blue}{\textcolor{blue}}
+
+\def \R{\mathbb{R}}
+\def \Pr{\mathsf{P}}
+\def \T{\mathsf{T}}
+\def \c{\mathsf{c}}
+\def \spn{{\rm span}}
+\def \Ord{\mathscr{O}}
+\def \<{\langle}
+\def \>{\rangle}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\DeclareMathOperator*{\argmax}{arg\,max}
+
+\def \D{{\hyperref[DDef]{{\rm D}}}}
+\def \N{{\hyperref[NDef]{{\rm N}}}}
+\def \xi{{\hyperref[xiDef]{{\rm x}}}}
+\def \xx{{\hyperref[xxDef]{\bs{{\rm x}}}}}
+\def \yy{{\hyperref[yyDef]{\bs{{\rm y}}}}}
+\def \I{{\hyperref[IDef]{\bs{{\rm I}}}}}
+\def \X{{\hyperref[XDef]{\bs{{\rm X}}}}}
+\def \i{{\hyperref[iDef]{{\rm i}}}}
+
+\begin{document}
+  \lecture{1}
+    {Course policies and introduction}
+    {Benjamin Crom}
+
+  \lecture{2}
+    {Convex sets}
+    {Benjamin Crom}
+
+  \lecture{3}
+    {Convex functions}
+    {Benjamin Crom}
+
+
+\iffalse
+
+  \section{Last Time}
+    \begin{enumerate}[(a)]
+      \item Random Forests
+      \item Decision Trees
+    \end{enumerate}
+
+  \section{Is my GF/BF cheating?}
+    \begin{center}
+      \begin{tabular}{|l||c|c|c|c|c|c|c|c|c|c|c|c|c||c|}
+        \hline
+        Age & 23 & 20 & 33 & 23 & 25 & 32 & 27 & 21 & 25 & 27 & 26 & 29 & 47 &
+        $
+          \begin{cases}
+            1 & \text{if Age $ > 28$} \\
+            0 & \text{if Age $ < 28$}
+          \end{cases}
+        $ \\
+        \hline
+        Length & $\sfrac{1}{2}$ & 2 & 7 & 5 & 6 & 10 & 3 & 4 &
+        $\sfrac{3}{2}$ & 3 & 4 & $\sfrac{1}{3}$ & 1 &
+        $
+          \begin{cases}
+            1 & \text{if Length $ > 1$} \\
+            0 & \text{if Length $ < 1$}
+          \end{cases}
+        $ \\
+        \hline
+        Children & 0 & 0 & 2 & 1 & 0 & 3 & 0 & 0 & 0 & 0 & 1 & 0 & 6 &
+        $
+          \begin{cases}
+            1 & \text{if $ > 1$} \\
+            0 & \text{if $ < 1$}
+          \end{cases}
+        $ \\
+        \hline
+        Hours away/day & 20 & 7 & 10 & 7 & 13 & 2 & 8 & 7 & 13 & 11 & 8 & 4 &
+        12 &
+        $
+          \begin{cases}
+            1 & \text{if $ > 10$} \\
+            0 & \text{if $ < 10$}
+          \end{cases}
+        $ \\
+        \hline
+        Trips/year & 2 & 3 & 5 & 2 & 2 & 5 & 10 & 4 & 3 & 2 & 0 & 2 & 6 &
+        $ 
+          \begin{cases}
+            1 & \text{if $ > 3$} \\
+            0 & \text{if $ < 3$}
+          \end{cases}
+        $ \\
+        \hline
+        Previous offenses & 2 & 1 & 0 & 2 & 0 & 0 & 2 & 3 & 0 & 4 & 0 & 0 & 13 &
+        $
+          \begin{cases}
+            1 & \text{if $ > 1$} \\
+            0 & \text{if $ < 1$}
+          \end{cases}
+        $ \\
+        \hline
+        Gender & M & M & M & F & F & F & F & M & M & F & F & M & M &
+        \multicolumn{1}{|c}{} \\
+        \cline{1-14}
+        Is Cheating & 1 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 1 &
+        \multicolumn{1}{|c}{} \\
+        \cline{1-14}
+      \end{tabular}
+      \\
+      \vspace{1cm}
+      \begin{tabular}{|l||r|r|r|r|r|r|r|r|r|r|r|r|r||l||l|}
+        \cline{15-16}
+        \multicolumn{14}{c|}{} & $H(x_i)$ & $\hat{P}_1$ \\ \hline
+        $x_1$ --- AGE & 0 & 0 & 1 & 0 & 0 & 1 & 0 & 0 & 0 & 0 & 0 & 1 & 1 &
+        .89 & $\sfrac{4}{13}$ \\ \hline
+        $x_2$ --- LENGTH & 0 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 1 & 0 & 1 &
+        .619 & $\sfrac{11}{13}$ \\ \hline
+        $x_3$ --- CHILDREN & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 0 & 0 & 1 & 0 & 1 &
+        .9612 & $\sfrac{5}{13}$ \\ \hline
+        $x_4$ --- HOURS & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 1 &
+        .96 & $\sfrac{5}{13}$ \\ \hline
+        $x_5$ --- TRIPS & 0 & 0 & 1 & 0 & 0 & 1 & 1 & 1 & 0 & 0 & 0 & 0 & 1 &
+        .9612 & $\sfrac{5}{13}$ \\ \hline
+        $x_6$ --- PREV & 1 & 1 & 0 & 1 & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0 & 1 &
+        .995 & $\sfrac{7}{13} \leftarrow \star$ \\ \hline
+        $x_6$ --- GENDER & 0 & 0 & 0 & 1 & 1 & 1 & 1 & 0 & 0 & 1 & 1 & 0 & 0 &
+        .995 & $\sfrac{6}{13} \leftarrow$ \\ \hline
+      \end{tabular} \\ \ \\
+      \vspace{1cm}
+    \end{center}
+    Compute the entropy for each of these features:
+    \begin{enumerate}[(a)]
+      \item Computer count number of 1 out of all variables
+      \item Find Bernoulli random variable
+    \end{enumerate}
+    \begin{align*}
+      H(x_3) &= \hat{P}_0 \log_2 \frac{1}{\hat{P}_0} +
+                \hat{P}_1 \log_2 \frac{1}{\hat{P}_1} \\
+      &= \frac{8}{13} \log_2 \frac{13}{8} + \frac{5}{13} \log_2 \frac{13}{5} \\
+      &= 0.962
+    \end{align*} \\
+    Thus, previous offenses and gender are both about equally informative.
+    \vspace{0.5cm}
+    \begin{center}
+      All \underline{zeros} in previous offenses: \\ \ \\
+      \begin{tabular}{|l||r|r|r|r|r|r||r||r|}
+        \cline{8-9}
+        \multicolumn{7}{c|}{}
+        & $H(x_i)$ & $\hat{P}_1$ \\
+        \hline
+        $\star$ Age & 1 & 0 & 1 & 0 & 0 & 1 & 1 & \sfrac{3}{6} \\
+        \hline
+        Length & 1 & 1 & 1 & 1 & 1 & 0 & $<1$ & \sfrac{5}{6} \\
+        \hline
+        Children & 1 & 0 & 1 & 0 & 1 & 0 & 1 & \sfrac{3}{6} \\
+        \hline
+        $\rightarrow$ Hours & 0 & 1 & 0 & 1 & 0 & 0 & $<1$ & \sfrac{2}{6} \\
+        \hline
+        Trips & 1 & 0 & 1 & 0 & 0 & 0 & $<1$ & \sfrac{2}{6} \\
+        \hline
+        Gender & 0 & 1 & 1 & 0 & 1 & 0 & 1 & \sfrac{3}{6} \\
+        \hline
+        Cheating & 1 & 0 & 1 & 0 & 1 & 1 & \multicolumn{2}{c}{} \\
+        \cline{1-7}
+      \end{tabular}
+      \\
+      \vspace{1cm}
+      All \underline{ones} in previous offenses: \\ \ \\
+      \begin{tabular}{|l||r|r|r|r|r|r|r||r||r|}
+        \cline{9-10}
+        \multicolumn{8}{c|}{}
+        & $H(x_i)$ & $\hat{P}_1$ \\
+        \hline
+        $\star$ Age & 0 & 0 & 0 & 0 & 0 & 0 & 1 & & $\sfrac{1}{7}$ \\
+        \hlin
+        Length & 0 & 1 & 1 & 1 & 1 & 1 & 1 & & $\sfrac{6}{7}$ \\
+        \hline
+        Children & 0 & 0 & 1 & 0 & 0 & 0 & 1 & & $\sfrac{2}{7}$ \\
+        \hline
+        $\rightarrow$ Hours & 1 & 0 & 0 & 0 & 0 & 1 & 1 & 0.98 &
+        $\sfrac{3}{7} \star$ \\
+        \hline
+        Trips & 0 & 0 & 0 & 1 & 1 & 0 & 1 & 0.98 & $\sfrac{3}{7} \star$ \\
+        \hline
+        Gender & 0 & 0 & 1 & 1 & 0 & 1 & 0 & 0.98 & $\sfrac{3}{7} \star$ \\
+        \hline
+        Cheating & 1 & 0 & 1 & 0 & 0 & 0 & 1 & \multicolumn{2}{c}{} \\
+        \cline{1-8}
+      \end{tabular} \\ \ \\ \ \\
+      $\star =$ informative variable \\
+      The closer to $\sfrac{1}{2}$ has a large entropy; the maximum you can have
+      is attained with $\sfrac{1}{2}$.
+      \center
+      \includegraphics[width=5cm]{diagram4.png}
+      \justify
+      We use the information above to determine the next question in our
+      decision tree by selecting the most informative variable. For our data,
+      we can choose age, children or hours:
+      \begin{enumerate}[(a)]
+        \item Hours can be overfitting
+        \item Age is a good choice but we may need to add another layer of
+              questions.
+      \end{enumerate}
+      \center
+      \includegraphics[width=3cm]{diagram1.png}
+      \justify
+    \end{center}
+  \section{Covariance [matrices]}
+    \underline{Main Goal}: Find that variables are related
+    \subsection{Random Vectors}
+      Let $x$ be a random variable distributed gaussian$(0,1)$:
+      $$\textrm{random} \rightarrow
+        \equalto{x \sim \mathcal{N}(0,1)}{y \sim \mathcal{N}(0,1)}$$
+      \begin{center}
+        \includegraphics[width=3cm]{diagram2.png}
+      \end{center}
+      Variance being $0$ makes it deterministic and no longer random:
+      \begin{align*}
+        \textrm{deterministic} \rightarrow &x
+        \sim \mathcal{N}(0,0) \\
+        &x = 0
+      \end{align*}
+      \begin{center}
+        \includegraphics[width=3cm]{diagram3.png} \\
+        Which is better?\\
+        $y = 0.05$ vs. $y = 0$ \\ \ \\
+        if $y$ and $x$ are equal: \\
+        $y|x \sim \mathcal{N}(x,0)$ \\ \ \\
+        if $y$ and $x$ are independent: \\
+        $y|x \sim \mathcal{N}(0,1)$ \\ \ \\ \ \\
+        $\exists$ a strong correlation between $x, y$: \\
+        \begin{align*}
+          &x_1 = 0.05  &y_1 = 0.05 \\
+          &x_2 = 0.07  &y_2 = 0.07 \\
+          &x_3 = -0.03  &y_3 = -0.03 \\
+          &x_4 = -0.09  &y_4 = -0.09 \\
+        \end{align*}
+        not so strongly correlated:
+        \begin{align*}
+          &x_1 = 0.05  &y_1 = -0.1 \\
+          &x_2 = 0.07  &y_1 = 0.09 \\
+          &x_3 = -0.03  &y_1 = 0.02 \\
+          &x_4 = -0.09  &y_1 = 0.05 \\
+        \end{align*}
+        $$\bs{Z} = \begin{bmatrix} x \\ y \end{bmatrix}$$
+      \end{center}
+  \section{Wrap up}
+    \subsection{Today}
+      \begin{enumerate}[(a)]
+        \item Example of Decision Trees
+        \item Example of Random Forests
+      \end{enumerate}
+    \subsection{Next}
+      \begin{enumerate}[(a)]
+        \item Correlation
+      \end{enumerate}
+
+\fi
+\end{document} 
